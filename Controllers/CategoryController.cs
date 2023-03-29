@@ -16,6 +16,7 @@ namespace BulkyBook.Controllers
             _db = db;
         }
 
+        //GET
         public IActionResult Index()
         {
             
@@ -24,9 +25,24 @@ namespace BulkyBook.Controllers
             return View(objCategoryList);
         }
 
+        //GET
         public IActionResult Create()
         {
             return View();
+        }
+
+        //POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Category obj)
+        {
+            if (ModelState.IsValid)
+            {   
+                _db.Category.Add(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(obj);
         }
     }
 }
