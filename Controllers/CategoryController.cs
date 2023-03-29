@@ -20,8 +20,13 @@ namespace BulkyBook.Controllers
         {
             
             IEnumerable<Category> objCategoryList = _db.Category.ToList();
-            
+ 
             return View(objCategoryList);
+        }
+
+        public IActionResult Create()
+        {
+            return View();
         }
     }
 }
