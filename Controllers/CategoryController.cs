@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BulkyBook.Data;
+using BulkyBook.Models;
 
 namespace BulkyBook.Controllers
 {
@@ -17,10 +18,10 @@ namespace BulkyBook.Controllers
 
         public IActionResult Index()
         {
-            Console.WriteLine(_db);
-            var objCategoryList = _db.Category.ToList();
-            Console.WriteLine(objCategoryList);
-            return View();
+            
+            IEnumerable<Category> objCategoryList = _db.Category.ToList();
+            
+            return View(objCategoryList);
         }
     }
 }
