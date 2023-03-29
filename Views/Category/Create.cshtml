@@ -25,4 +25,12 @@
     <button type="submit" class="btn btn-primary" style="width:150px;">Create</button>
     <a class="btn btn-secondary" style="width:150px;" asp-controller="Category" asp-action="Index">Back to List</a>
 </form>
-    
+
+@section Scripts{
+
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+}
+
