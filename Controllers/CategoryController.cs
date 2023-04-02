@@ -17,13 +17,47 @@ namespace BulkyBook.Controllers
         }
 
         //GET
-        public IActionResult Index()
-        {
+        //public IActionResult Index()
+        //{
             
-            IEnumerable<Category> objCategoryList = _db.Category.ToList();
+        //    IEnumerable<Category> objCategoryList = _db.Category.ToList();
  
-            return View(objCategoryList);
+        //    return View(objCategoryList);
+        //}
+
+        //GET
+        public IActionResult Index(string SearchString)
+        {
+            //Console.WriteLine("SearchString : " + SearchString);
+            var objCategory = from b in _db.Category select b;
+            ViewData["CurrentFilter"] = SearchString;
+            if (!String.IsNullOrEmpty(SearchString))
+            {
+                //Console.WriteLine("inside if");
+                objCategory = objCategory.Where(s => s.Name.Contains(SearchString));
+                //Console.WriteLine(objCategory.ToList());
+            }
+
+            //switch (sortOrder)
+            //{
+            //    case "Name_Desc":
+            //        objCategory = objCategory.OrderByDescending(s => s.Name);
+            //        break;
+            //    case "DisplayOrder_Acen":
+            //        objCategory = objCategory.OrderByDescending(s => s.Name);
+            //        break;
+            //    case "DisplayOrder_Desc":
+            //        objCategory = objCategory.OrderByDescending(s => s.DisplayOrder);
+            //        break;
+            //    default:
+            //        objCategory = objCategory.OrderBy(s => s.Name);
+            //        break;
+
+            //}
+
+            return View(objCategory.ToList());
         }
+
 
         //GET
         public IActionResult Create()

@@ -22,7 +22,21 @@
         </div>
     </div>
 </div>
-<br/> <br/>
+<br />
+<br />
+
+@using (Html.BeginForm())
+{
+    <form asp-action="Index" method="get">
+        <p>
+            <label for="SearchString">Find by name:</label>
+            <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Search" />
+            <a asp-action="Index">Clear Filter</a> 
+        </p>
+    </form>
+}
+
 <table class="table table-bordered table-striped" style="width:100%">
     <thead>
         <tr>
@@ -37,34 +51,34 @@
     </thead>
     <tbody>
         @foreach (var obj in Model)
-            {
-                <tr>
-                    <td style="width:50%">
-                        @obj.Name
-                    </td>
+        {
+            <tr>
+                <td style="width:50%">
+                    @obj.Name
+                </td>
 
-                    <td style="width:30%">
-                        @obj.DisplayOrder
-                    </td>
-                    <td>
-                        <div class="w-40 btn-group" role="group">
-                            <a asp-controller="Category" asp-action="Edit"
-                               asp-route-id="@obj.Id" class="btn btn-primary mx-2">
-                                <i class="bi bi-pencil"></i> Edit
+                <td style="width:30%">
+                    @obj.DisplayOrder
+                </td>
+                <td>
+                    <div class="w-40 btn-group" role="group">
+                        <a asp-controller="Category" asp-action="Edit"
+                           asp-route-id="@obj.Id" class="btn btn-primary mx-2">
+                            <i class="bi bi-pencil"></i> Edit
 
-                            </a>
-                        </div>
-                        <span class="w-40 btn-group" role="group">
-                            <a asp-controller="Category" asp-action="Delete"
-                               asp-route-id="@obj.Id" class="btn btn-danger mx-2">
-                                <i class="bi bi-trash-fill"></i> Delete
+                        </a>
+                    </div>
+                    <span class="w-40 btn-group" role="group">
+                        <a asp-controller="Category" asp-action="Delete"
+                           asp-route-id="@obj.Id" class="btn btn-danger mx-2">
+                            <i class="bi bi-trash-fill"></i> Delete
 
-                            </a>
-                        </span>
-                    </td>
-                </tr>
+                        </a>
+                    </span>
+                </td>
+            </tr>
 
-            }
+        }
     </tbody>
 </table>
 
