@@ -41,10 +41,12 @@
     <thead>
         <tr>
             <th>
-                Category Name
+                @Html.ActionLink("Category Name", "Index", new { sortOrder = ViewBag.NameSortParm })
+                
             </th>
             <th>
-                Display Order
+                @Html.ActionLink("Display Order", "Index", new { sortOrder = ViewBag.DateSortParm })
+               
             </th>
             <th></th>
         </tr>

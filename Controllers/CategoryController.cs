@@ -16,44 +16,38 @@ namespace BulkyBook.Controllers
             _db = db;
         }
 
-        //GET
-        //public IActionResult Index()
-        //{
-            
-        //    IEnumerable<Category> objCategoryList = _db.Category.ToList();
- 
-        //    return View(objCategoryList);
-        //}
 
         //GET
-        public IActionResult Index(string SearchString)
+        public IActionResult Index(string sortOrder, string SearchString)
         {
-            //Console.WriteLine("SearchString : " + SearchString);
+            
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Name_Desc" : "";
+            ViewBag.DateSortParm = sortOrder == "DisplayOrder_Desc" ? "DisplayOrder_Acen" : "DisplayOrder_Desc";
+
             var objCategory = from b in _db.Category select b;
             ViewData["CurrentFilter"] = SearchString;
             if (!String.IsNullOrEmpty(SearchString))
-            {
-                //Console.WriteLine("inside if");
-                objCategory = objCategory.Where(s => s.Name.Contains(SearchString));
-                //Console.WriteLine(objCategory.ToList());
+            {   
+                objCategory = objCategory.Where(s => s.Name.ToLower().Contains(SearchString.ToLower()));   
             }
+            
 
-            //switch (sortOrder)
-            //{
-            //    case "Name_Desc":
-            //        objCategory = objCategory.OrderByDescending(s => s.Name);
-            //        break;
-            //    case "DisplayOrder_Acen":
-            //        objCategory = objCategory.OrderByDescending(s => s.Name);
-            //        break;
-            //    case "DisplayOrder_Desc":
-            //        objCategory = objCategory.OrderByDescending(s => s.DisplayOrder);
-            //        break;
-            //    default:
-            //        objCategory = objCategory.OrderBy(s => s.Name);
-            //        break;
+            switch (sortOrder)
+            {
+                case "Name_Desc":
+                    objCategory = objCategory.OrderByDescending(s => s.Name);
+                    break;
+                case "DisplayOrder_Acen":
+                    objCategory = objCategory.OrderBy(s => s.DisplayOrder);
+                    break;
+                case "DisplayOrder_Desc":
+                    objCategory = objCategory.OrderByDescending(s => s.DisplayOrder);
+                    break;
+                default:
+                    objCategory = objCategory.OrderBy(s => s.Name);
+                    break;
 
-            //}
+            }
 
             return View(objCategory.ToList());
         }
